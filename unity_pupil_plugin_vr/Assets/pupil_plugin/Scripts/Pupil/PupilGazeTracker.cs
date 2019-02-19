@@ -113,6 +113,12 @@ public class PupilGazeTracker:MonoBehaviour
 				updateInitialTranslation = false;
 			}
 		}
+
+		if (PupilTools.IsConnected && Input.GetKeyUp (KeyCode.S))
+		{
+			// Skip calibration
+			PupilTools.CalibrationFinished();
+		}
 #if !UNITY_WSA
 		if (Input.GetKeyUp (KeyCode.R))
 		{
