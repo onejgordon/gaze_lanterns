@@ -9,14 +9,16 @@ namespace Valve.VR.InteractionSystem.Sample
 {
     public class ShootNode : MonoBehaviour
     {
-        public SteamVR_Action_Single squeezeAction;
+        public SteamVR_Action_Boolean squeezeAction;
 
-        public Hand hand;
+        private Hand hand;
 
         public GameObject prefabToShoot;
+        
+        const float CROSSHAIR_DIST = 1.3f;
+        const SteamVR_Input_Sources inputSource = SteamVR_Input_Sources.RightHand;
 
-
-        private void OnEnable()
+        void OnEnable()
         {
             if (hand == null)
                 hand = this.GetComponent<Hand>();
@@ -27,72 +29,74 @@ namespace Valve.VR.InteractionSystem.Sample
                 return;
             }
 
-            squeezeAction.AddOnChangeListener(OnFireActionChange, hand.handType);
+            squeezeAction.AddOnChangeListener(OnFireActionChange, inputSource);
         }
 
         private void OnDisable()
         {
             if (squeezeAction != null)
-                squeezeAction.RemoveOnChangeListener(OnFireActionChange, hand.handType);
+                squeezeAction.RemoveOnChangeListener(OnFireActionChange, inputSource);
         }
 
-        private void OnFireActionChange(SteamVR_Action_Boolean actionIn, SteamVR_Input_Sources inputSource, bool newValue)
+        private void OnFireActionChange(SteamVR_Action_Boolean actionIn, SteamVR_Input_Sources inputSource, bool newVal)
         {
-            if (newValue)
-            {
-                Plant();
-            }
+            Debug.Log("OnFireActionChange: " + newVal.ToString());
+            if (newVal) Shoot();
         }
 
-        public void Plant()
+        public void Shoot()
         {
-            StartCoroutine(DoPlant());
+            StartCoroutine(DoShoot());
         }
 
-        private IEnumerator DoPlant()
+        private IEnumerator DoShoot()
         {
-            Vector3 plantPosition;
+            Vector3 lanternDestinationPos;
+            float velocity = 0.4f;
+            float deceleration = 0.02f;
 
-            RaycastHit hitInfo;
-            bool hit = Physics.Raycast(hand.transform.position, Vector3.down, out hitInfo);
-            if (hit)
-            {
-                plantPosition = hitInfo.point + (Vector3.up * 0.05f);
-            }
-            else
-            {
-                plantPosition = hand.transform.position;
-                plantPosition.y = Player.instance.transform.position.y;
-            }
+            lanternDestinationPos = getControllerPosition() + getControllerRotation().eulerAngles * CROSSHAIR_DIST;
 
-            GameObject planting = GameObject.Instantiate<GameObject>(prefabToShoot);
-            planting.transform.position = plantPosition;
-            planting.transform.rotation = Quaternion.Euler(0, Random.value * 360f, 0);
+            GameObject lantern = GameObject.Instantiate<GameObject>(prefabToShoot);
+            NodeBehavior.CreateComponent(lantern, transform.forward, this.hand.transform.position + transform.forward * CROSSHAIR_DIST);
 
-            planting.GetComponentInChildren<MeshRenderer>().material.SetColor("_TintColor", Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f));
-
-            Rigidbody rigidbody = planting.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-                rigidbody.isKinematic = true;
-
-
-
-            Vector3 initialScale = Vector3.one * 0.01f;
-            Vector3 targetScale = Vector3.one * (1 + (Random.value * 0.25f));
+            lantern.AddComponent<BoxCollider>();
+            lantern.transform.position = hand.transform.position;
 
             float startTime = Time.time;
-            float overTime = 0.5f;
+            float overTime = 2.5f;
             float endTime = startTime + overTime;
 
             while (Time.time < endTime)
             {
-                planting.transform.localScale = Vector3.Slerp(initialScale, targetScale, (Time.time - startTime) / overTime);
+                if (velocity > 0) lantern.transform.Translate(velocity * (lanternDestinationPos - lantern.transform.position));
+                velocity -= deceleration;
                 yield return null;
             }
 
 
-            if (rigidbody != null)
-                rigidbody.isKinematic = false;
+        }
+
+        public Vector3 getControllerPosition()
+        {
+            return this.hand.transform.position;
+            // SteamVR_Action_Pose[] poseActions = SteamVR_Input._default.poseActions;
+            // if (poseActions.Length > 0)
+            // {
+            //     return poseActions[0].GetLocalPosition(inputSource);
+            // }
+            // return new Vector3(0, 0, 0);
+        }
+
+        public Quaternion getControllerRotation()
+        {
+            return this.hand.transform.rotation;
+            // SteamVR_Action_Pose[] poseActions = SteamVR_Input._default.poseActions;
+            // if (poseActions.Length > 0)
+            // {
+            //     return poseActions[0].GetLocalRotation(inputSource);
+            // }
+            // return Quaternion.identity;
         }
     }
 }

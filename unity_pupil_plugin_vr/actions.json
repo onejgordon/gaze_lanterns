@@ -32,7 +32,7 @@
     },
     {
       "name": "/actions/default/in/Squeeze",
-      "type": "vector1",
+      "type": "boolean",
       "requirement": "optional"
     },
     {
