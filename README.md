@@ -4,8 +4,9 @@
 
 ### Scenes
 
-Start scene: 2D Calibration to Lab (runs calibration then activates lab demo scene)
-Barebones lab scene: Lab Test Demo
+* _Start scene_: 2D Calibration to Lab (runs calibration then activates lab demo scene)
+* _Barebones lab scene_: Lab Test Demo
+* _Lantern demo scene_: ...
 
 ### Scripts (behaviors, etc)
 
@@ -26,4 +27,4 @@ Working on Unity 2018.3.6f1. Not yet tested on other versions.
 
 ## Notes
 
-Forked and edited from hmd-eyes for research use at BioSENSE.
+Forked and edited from hmd-eyes for research use at Berkeley [BioSENSE](http://biosense.berkeley.edu/).
