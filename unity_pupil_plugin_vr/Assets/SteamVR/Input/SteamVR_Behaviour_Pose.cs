@@ -9,7 +9,7 @@ using Valve.VR;
 namespace Valve.VR
 {
     /// <summary>
-    /// This component simplifies the use of Pose actions. Adding it to a gameobject will auto set that transform's position and rotation every update to match the pose.
+    /// This component simplifies the use of Pose actions. Adding it to a gameobject will auto set that transform's position and rotation every update to match the pose
     /// Advanced velocity estimation is handled through a buffer of the last 30 updates.
     /// </summary>
     public class SteamVR_Behaviour_Pose : MonoBehaviour
