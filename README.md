@@ -9,3 +9,7 @@ Barebones lab scene: Lab Test Demo
 Working on Unity 2018.3.6f1. Not yet tested on other versions.
 
 * Interaction system: https://valvesoftware.github.io/steamvr_unity_plugin/articles/Interaction-System.html
+
+## Todo / WIP
+
+* Use raytracer to check for object collision (instead of collider)

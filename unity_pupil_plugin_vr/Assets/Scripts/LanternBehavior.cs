@@ -6,7 +6,7 @@ public class LanternBehavior : MonoBehaviour {
 
     private float temperature = 0.2f; // 0-1
     const float heating_rate = 0.02f;
-    const float cooling_rate = 0.7f;
+    const float cooling_rate = 0.85f;
     public Vector3 direction;
     private Vector3 destination;
     
@@ -32,13 +32,13 @@ public class LanternBehavior : MonoBehaviour {
         if (focusing) {
             temperature += heating_rate;
             change = true;
-        }
-        
-        // Cool
-        if (this.temperature > 0) {
-            this.temperature = this.temperature * cooling_rate;
-            change = true;
-            if (this.temperature < 0) this.temperature = 0.0f;
+        } else {
+            // Cool
+            if (this.temperature > 0) {
+                this.temperature = this.temperature * cooling_rate;
+                change = true;
+                if (this.temperature < 0) this.temperature = 0.0f;
+            }
         }
 
         if (change) {

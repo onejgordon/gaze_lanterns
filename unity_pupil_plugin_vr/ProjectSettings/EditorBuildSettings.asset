@@ -32,7 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Market Scene Demo/SceneManager Scenes/Market with Heatmap.unity
     guid: 44fa73068eb47f64c89be0d8e49fef53
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Lab Test Demo.unity
-    guid: abbd79f556c709e48943b296c03c10f9
+    path: Assets/Lab Test Lanterns.unity
+    guid: d93727fe40938654297dba31ad358d15
   m_configObjects: {}

@@ -59,6 +59,7 @@ namespace Valve.VR.InteractionSystem.Sample
             Debug.Log("Destination: " + lanternDestinationPos.ToString());
 
             GameObject lantern = GameObject.Instantiate<GameObject>(prefabToShoot);
+            LanternBehavior behavior = lantern.AddComponent<LanternBehavior>();
             lantern.transform.position = hand.transform.position;
 
             float startTime = Time.time;
