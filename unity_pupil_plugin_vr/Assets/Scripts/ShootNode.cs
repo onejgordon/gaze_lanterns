@@ -15,7 +15,7 @@ namespace Valve.VR.InteractionSystem.Sample
 
         public GameObject prefabToShoot;
         
-        const float CROSSHAIR_DIST = 1.3f;
+        const float CROSSHAIR_DIST = 2.3f;
         const SteamVR_Input_Sources inputSource = SteamVR_Input_Sources.RightHand;
 
         void OnEnable()
@@ -52,24 +52,22 @@ namespace Valve.VR.InteractionSystem.Sample
         private IEnumerator DoShoot()
         {
             Vector3 lanternDestinationPos;
-            float velocity = 0.4f;
-            float deceleration = 0.02f;
+            float velocity = 0.3f;
+            float deceleration = 0.017f;
 
-            lanternDestinationPos = getControllerPosition() + getControllerRotation().eulerAngles * CROSSHAIR_DIST;
+            lanternDestinationPos = getControllerPosition() + this.hand.transform.forward * CROSSHAIR_DIST;
+            Debug.Log("Destination: " + lanternDestinationPos.ToString());
 
             GameObject lantern = GameObject.Instantiate<GameObject>(prefabToShoot);
-            NodeBehavior.CreateComponent(lantern, transform.forward, this.hand.transform.position + transform.forward * CROSSHAIR_DIST);
-
-            lantern.AddComponent<BoxCollider>();
             lantern.transform.position = hand.transform.position;
 
             float startTime = Time.time;
             float overTime = 2.5f;
             float endTime = startTime + overTime;
 
-            while (Time.time < endTime)
+            while (velocity > 0)
             {
-                if (velocity > 0) lantern.transform.Translate(velocity * (lanternDestinationPos - lantern.transform.position));
+                lantern.transform.Translate(velocity * (lanternDestinationPos - lantern.transform.position));
                 velocity -= deceleration;
                 yield return null;
             }
@@ -80,23 +78,11 @@ namespace Valve.VR.InteractionSystem.Sample
         public Vector3 getControllerPosition()
         {
             return this.hand.transform.position;
-            // SteamVR_Action_Pose[] poseActions = SteamVR_Input._default.poseActions;
-            // if (poseActions.Length > 0)
-            // {
-            //     return poseActions[0].GetLocalPosition(inputSource);
-            // }
-            // return new Vector3(0, 0, 0);
         }
 
         public Quaternion getControllerRotation()
         {
             return this.hand.transform.rotation;
-            // SteamVR_Action_Pose[] poseActions = SteamVR_Input._default.poseActions;
-            // if (poseActions.Length > 0)
-            // {
-            //     return poseActions[0].GetLocalRotation(inputSource);
-            // }
-            // return Quaternion.identity;
         }
     }
 }

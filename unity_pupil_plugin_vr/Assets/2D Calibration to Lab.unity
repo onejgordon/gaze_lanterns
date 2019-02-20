@@ -132,7 +132,7 @@ PrefabInstance:
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 3}
       propertyPath: availableScenes.Array.size
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 3}
@@ -157,12 +157,12 @@ PrefabInstance:
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 3}
       propertyPath: availableScenes.Array.data[0]
-      value: Market with 2D Calibration
+      value: Lab Test Basic
       objectReference: {fileID: 0}
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 3}
       propertyPath: availableScenes.Array.data[1]
-      value: Lab Test Demo
+      value: Lab Test Lanterns
       objectReference: {fileID: 0}
     - target: {fileID: 114039770744552444, guid: 1a363ebd9791e7d48a02435c46d956ab,
         type: 3}
