@@ -27,4 +27,4 @@ Working on Unity 2018.3.6f1. Not yet tested on other versions.
 
 ## Notes
 
-Forked and edited from hmd-eyes for research use at Berkeley [BioSENSE](http://biosense.berkeley.edu/).
+Forked and edited from [hmd-eyes](https://github.com/pupil-labs/hmd-eyes) for research use at Berkeley [BioSENSE](http://biosense.berkeley.edu/).
