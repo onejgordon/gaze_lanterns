@@ -16,14 +16,4 @@ public class EyeMarkerBehavior : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider c)
-    {
-        LanternBehavior lb = c.gameObject.GetComponent<LanternBehavior>();
-        lb.StartFocus();
-    }
-
-    void OnTriggerExit(Collider c) {
-        LanternBehavior lb = c.gameObject.GetComponent<LanternBehavior>();
-        lb.StopFocus();
-    }
 }

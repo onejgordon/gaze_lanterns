@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestWorld : MonoBehaviour
+public class LabTestLanterns : MonoBehaviour
 {
-    public Camera steamCamera;
+    private Camera steamCamera;
 
     private LineRenderer heading;
     private Vector3 standardViewportPoint = new Vector3(0.5f, 0.5f, 10);
@@ -13,23 +13,25 @@ public class TestWorld : MonoBehaviour
     private Vector2 gazePointRight;
     private Vector2 gazePointCenter;
 
+    public Transform marker;
+    public bool showGazeLaser;
+    public bool showEyeMarkers;
+
     public Material shaderMaterial;
 
     void Start()
     {
         PupilData.calculateMovingAverage = false;
 
-        //steamCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        steamCamera = gameObject.GetComponent<Camera> ();
         heading = gameObject.GetComponent<LineRenderer>();
+        heading.enabled = showGazeLaser;
     }
 
     void OnEnable()
     {
         if (PupilTools.IsConnected)
         {
-            print("TestWorld.we're gazing");
-
-            PupilSettings.Instance.currentCamera = steamCamera;
             PupilGazeTracker.Instance.StartVisualizingGaze();
             PupilTools.IsGazing = true;
             PupilTools.SubscribeTo("gaze");
@@ -46,6 +48,8 @@ public class TestWorld : MonoBehaviour
             gazePointRight = PupilData._2D.GetEyePosition(steamCamera, PupilData.rightEyeID);
             gazePointCenter = PupilData._2D.GazePosition;
             viewportPoint = new Vector3(gazePointCenter.x, gazePointCenter.y, 1f);
+
+            if (showEyeMarkers) marker.localPosition = PupilData._2D.GazePosition;
         }
 
         if (Input.GetKeyUp(KeyCode.L))
@@ -53,22 +57,33 @@ public class TestWorld : MonoBehaviour
             heading.enabled = !heading.enabled;
             print("Heading enabled: " + heading.enabled.ToString());
         }
-            
-        if (heading.enabled)
-        {
-            heading.SetPosition(0, steamCamera.transform.position - steamCamera.transform.up);
+        
+        heading.SetPosition(0, steamCamera.transform.position - steamCamera.transform.up);
 
-            Ray ray = steamCamera.ViewportPointToRay(viewportPoint);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                heading.SetPosition(1, hit.point);
+        float thickness = 1f;
+        Vector3 origin = steamCamera.transform.position;
+        Vector3 direction = viewportPoint;
+        // Ray = steamCamera.ViewportPointToRay(viewportPoint);
+        RaycastHit hit;
+        // if (Physics.Raycast(ray, out hit))
+        if (Physics.SphereCast(origin, thickness, direction, out hit))
+        {
+            heading.SetPosition(1, hit.point);
+
+            // Check if hit object is lantern
+            GameObject hitObject = hit.transform.gameObject;
+            LanternBehavior lb = hitObject.GetComponent<LanternBehavior>();
+            if (lb != null) {
+                // Heat this lantern
+                lb.Heat();
             }
-            else
-            {
-                heading.SetPosition(1, ray.origin + ray.direction * 50f);
-            }
+            
         }
+        else
+        {
+            heading.SetPosition(1, origin + direction * 50f);
+        }
+    
     }
     
     void OnDisable()

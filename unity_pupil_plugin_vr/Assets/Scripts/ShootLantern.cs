@@ -7,7 +7,7 @@ using Valve.VR.InteractionSystem;
 
 namespace Valve.VR.InteractionSystem.Sample
 {
-    public class ShootNode : MonoBehaviour
+    public class ShootLantern : MonoBehaviour
     {
         public SteamVR_Action_Boolean squeezeAction;
 
