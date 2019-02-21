@@ -1,6 +1,7 @@
 dev_Refactor-and-demos/Library/
 dev_Refactor-and-demos/Temp/
 *.pyc
+.DS_Store
 
 .vscode/*
 !.vscode/settings.json
