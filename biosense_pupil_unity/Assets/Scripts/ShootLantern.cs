@@ -15,7 +15,7 @@ namespace Valve.VR.InteractionSystem.Sample
 
         public GameObject prefabToShoot;
         
-        const float CROSSHAIR_DIST = 2.3f;
+        const float MIN_DEST_DIST = 2.3f;
         const SteamVR_Input_Sources inputSource = SteamVR_Input_Sources.RightHand;
 
         void OnEnable()
@@ -40,7 +40,6 @@ namespace Valve.VR.InteractionSystem.Sample
 
         private void OnFireActionChange(SteamVR_Action_Boolean actionIn, SteamVR_Input_Sources inputSource, bool newVal)
         {
-            Debug.Log("OnFireActionChange: " + newVal.ToString());
             if (newVal) Shoot();
         }
 
@@ -55,16 +54,12 @@ namespace Valve.VR.InteractionSystem.Sample
             float velocity = 0.3f;
             float deceleration = 0.017f;
 
-            lanternDestinationPos = getControllerPosition() + this.hand.transform.forward * CROSSHAIR_DIST;
-            Debug.Log("Destination: " + lanternDestinationPos.ToString());
+            float dist_to_send = Random.Range(MIN_DEST_DIST, MIN_DEST_DIST * 5);
+            lanternDestinationPos = getControllerPosition() + this.hand.transform.forward * dist_to_send;
 
             GameObject lantern = GameObject.Instantiate<GameObject>(prefabToShoot);
             LanternBehavior behavior = lantern.AddComponent<LanternBehavior>();
             lantern.transform.position = hand.transform.position;
-
-            float startTime = Time.time;
-            float overTime = 2.5f;
-            float endTime = startTime + overTime;
 
             while (velocity > 0)
             {

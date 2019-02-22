@@ -6,6 +6,6 @@
 ### Symptom: Vive controller trigger not producing action
 * Fix: Ensure bindings include Trigger click -> squeeze
 
-### Symptom: Pupil exiting immediately on startup
+### Symptom: pupil_capture.exe has stopped working, immediately on startup
 
-* Fix: Window restart (Ugh)
+* Fix: Window restart (Ugh). Unplugging and re-plugging USB from eye trackers seems to work sometimes.

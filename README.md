@@ -14,7 +14,17 @@
 
 ## Setup
 
-Working on Unity 2018.3.6f1. Not yet tested on other versions.
+Working on:
+
+* Unity 2018.3.6f1
+* Pupil Capture v1.10
+* SteamVR Plugin 2.2.0
+
+Not yet tested on other versions.
+
+If recordings are needed, make sure to set the path for recording files in the "2D Calibration to Lab" scene, under Pupil Manager > PupilGazeTracker > Inspector > Recording - Custom Path.
+
+Once connected, pressing 'r' should begin the recording.
 
 ## Useful Resources
 

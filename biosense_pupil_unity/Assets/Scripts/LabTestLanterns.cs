@@ -21,7 +21,7 @@ public class LabTestLanterns : MonoBehaviour
 
     void Start()
     {
-        PupilData.calculateMovingAverage = false;
+        PupilData.calculateMovingAverage = true;
 
         steamCamera = gameObject.GetComponent<Camera> ();
         heading = gameObject.GetComponent<LineRenderer>();
@@ -60,12 +60,10 @@ public class LabTestLanterns : MonoBehaviour
         
         heading.SetPosition(0, steamCamera.transform.position - steamCamera.transform.up);
 
-        float thickness = 1f;
+        float thickness = 20f;
         Vector3 origin = steamCamera.transform.position;
-        Vector3 direction = viewportPoint;
-        // Ray = steamCamera.ViewportPointToRay(viewportPoint);
+        Vector3 direction = viewportPoint - origin;
         RaycastHit hit;
-        // if (Physics.Raycast(ray, out hit))
         if (Physics.SphereCast(origin, thickness, direction, out hit))
         {
             heading.SetPosition(1, hit.point);
@@ -75,13 +73,14 @@ public class LabTestLanterns : MonoBehaviour
             LanternBehavior lb = hitObject.GetComponent<LanternBehavior>();
             if (lb != null) {
                 // Heat this lantern
+                Debug.Log("Hit a lantern");
                 lb.Heat();
             }
-            
         }
         else
         {
-            heading.SetPosition(1, origin + direction * 50f);
+            Ray ray = steamCamera.ViewportPointToRay(viewportPoint);
+            heading.SetPosition(1, ray.origin + ray.direction * 50f);
         }
     
     }

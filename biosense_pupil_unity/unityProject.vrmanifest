@@ -5,10 +5,10 @@
       "app_key": "application.generated.unity.pupillabsvrdemo.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\VR_Research_1\\Documents\\jeremy\\hmd-eyes-vive-lab-starter\\unity_pupil_plugin_vr\\actions.json",
+      "action_manifest_path": "C:\\Users\\VR_Research_1\\Documents\\jeremy\\biosense-pupil-research-starter\\biosense_pupil_unity\\actions.json",
       "strings": {
         "en_us": {
-          "name": "HMD Vive Lab Starter"
+          "name": "Pupil Labs VR Demo [Testing]"
         }
       }
     }
