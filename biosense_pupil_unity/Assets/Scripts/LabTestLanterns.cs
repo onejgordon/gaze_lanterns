@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class LabTestLanterns : MonoBehaviour
 {
+    const string CALIBRATION_MODE = "3D";  // Sync with Pupil Manager setting
+
     private Camera steamCamera;
 
     private LineRenderer heading;
@@ -49,7 +52,10 @@ public class LabTestLanterns : MonoBehaviour
             gazePointCenter = PupilData._2D.GazePosition;
             viewportPoint = new Vector3(gazePointCenter.x, gazePointCenter.y, 1f);
 
-            if (showEyeMarkers) marker.localPosition = PupilData._2D.GazePosition;
+            if (showEyeMarkers) {
+                if (CALIBRATION_MODE == "3D") marker.localPosition = PupilData._3D.GazePosition;
+                else marker.localPosition = PupilData._2D.GazePosition;
+            }
         }
 
         if (Input.GetKeyUp(KeyCode.L))

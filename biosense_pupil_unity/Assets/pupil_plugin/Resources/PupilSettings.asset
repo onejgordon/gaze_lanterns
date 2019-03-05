@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: PupilSettings
   m_EditorClassIdentifier: Assembly-CSharp::Settings
   debug:
-    printSampling: 0
+    printSampling: 1
     printMessage: 0
     printMessageType: 0
   connection:
     IP: 127.0.0.1
     IPHeader: '>tcp://127.0.0.1:'
     PORT: 50020
-    subport: 56286
+    subport: 52764
     isLocal: 1
     confidenceThreshold: 0.6
     PupilVersion: 1.8.26
@@ -33,12 +33,12 @@ MonoBehaviour:
       ref_data:
       - 0
       - 0
-      points: 7
+      points: 9
       markerScale: 0.05
       centerPoint: {x: 0.5, y: 0.48}
       vectorDepthRadius:
       - {x: 2, y: 0.12}
-      samplesPerDepth: 120
+      samplesPerDepth: 160
     CalibrationType3D:
       name: 3d
       pluginName: HMD_Calibration_3D
@@ -57,13 +57,13 @@ MonoBehaviour:
       samplesPerDepth: 120
     samplesToIgnoreForEyeMovement: 20
     rightEyeTranslation:
-    - 33.30001
+    - 33.10001
     - 0
     - 0
     leftEyeTranslation:
-    - -33.299984
-    - -0.00011920929
-    - -0.000059604645
+    - -33.10001
+    - 0
+    - 0
   customGUIVariables:
     tabs:
       mainTab: 1
