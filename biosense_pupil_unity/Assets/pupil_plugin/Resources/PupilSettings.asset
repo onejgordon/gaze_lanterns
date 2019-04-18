@@ -3,9 +3,8 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,18 +12,18 @@ MonoBehaviour:
   m_Name: PupilSettings
   m_EditorClassIdentifier: Assembly-CSharp::Settings
   debug:
-    printSampling: 1
+    printSampling: 0
     printMessage: 0
     printMessageType: 0
   connection:
     IP: 127.0.0.1
     IPHeader: '>tcp://127.0.0.1:'
     PORT: 50020
-    subport: 52764
+    subport: 63040
     isLocal: 1
     confidenceThreshold: 0.6
-    PupilVersion: 1.8.26
-    PupilVersionNumbers: 01000000080000001a000000
+    PupilVersion: 1.9.7
+    PupilVersionNumbers: 010000000900000007000000
   calibration:
     CalibrationType2D:
       name: 2d
@@ -33,12 +32,12 @@ MonoBehaviour:
       ref_data:
       - 0
       - 0
-      points: 9
+      points: 7
       markerScale: 0.05
       centerPoint: {x: 0.5, y: 0.48}
       vectorDepthRadius:
       - {x: 2, y: 0.12}
-      samplesPerDepth: 160
+      samplesPerDepth: 120
     CalibrationType3D:
       name: 3d
       pluginName: HMD_Calibration_3D
@@ -57,11 +56,11 @@ MonoBehaviour:
       samplesPerDepth: 120
     samplesToIgnoreForEyeMovement: 20
     rightEyeTranslation:
-    - 33.10001
+    - 32.15
     - 0
     - 0
     leftEyeTranslation:
-    - -33.10001
+    - -32.15
     - 0
     - 0
   customGUIVariables:

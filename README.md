@@ -34,6 +34,7 @@ Once connected, pressing 'r' should begin the recording.
 ## Todo / WIP
 
 * Use raytracer to check for object collision (instead of collider)
+* Look into new hmd-eyes alpha (though note no support for recording yet)
 
 ## Notes
 
