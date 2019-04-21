@@ -20,12 +20,10 @@ namespace Valve.VR.InteractionSystem.Sample
 
         void OnEnable()
         {
-            if (hand == null)
-                hand = this.GetComponent<Hand>();
-
+            if (hand == null) hand = GetComponent<Hand>();
             if (squeezeAction == null)
             {
-                Debug.LogError("<b>[SteamVR Interaction]</b> No plant action assigned");
+                Debug.LogError("<b>[SteamVR Interaction]</b> No action assigned");
                 return;
             }
 

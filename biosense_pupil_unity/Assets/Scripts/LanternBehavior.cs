@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class LanternBehavior : MonoBehaviour {
 
-    const float HEATING_RATE = 0.025f;
-    const float COOLING_RATE = 0.98f;
+    const float HEATING_RATE = 0.04f;
+    const float HEATING_INTENSITY = 6f;
+    const float DEFAULT_INTENSITY = 0.5f;
+    const float COOLING_RATE = 0.96f;
     const float MAX_HEAT = 1.0f;
     const float MIN_ELEVATION = 1.0f;
     const float MAX_VELOCITY = .07f;
@@ -17,16 +19,17 @@ public class LanternBehavior : MonoBehaviour {
 
     private Material light_material;
     private Material paper_material;
+    private Light light;
     private float velocity = 0.0f;
     private int last_heat_timestamp = 0;
     private bool showing_recently_heated = false;
 
     void Start () {
         // First child is Light
-        this.light_material = this.transform.GetChild(0).GetComponent<Renderer>().material;
+        // this.light_material = this.transform.GetChild(0).GetComponent<Renderer>().material;
         this.paper_material = this.transform.GetChild(2).GetComponent<Renderer>().material;
-
-		this.ground_heat_elev = 6f;
+        this.light = this.transform.GetChild(3).GetComponent<Light>();
+		this.ground_heat_elev = Random.Range(4f, 8f);
 	}
 	
 	void Update () {
@@ -49,7 +52,7 @@ public class LanternBehavior : MonoBehaviour {
         if (elev > MIN_ELEVATION || velocity > 0) this.transform.Translate(velocity * Vector3.up);   
         if (elev < ground_heat_elev) {
             // Heat slightly when near ground
-            float mult = 0.2f * (ground_heat_elev - elev);
+            float mult = 0.07f * (ground_heat_elev - elev);
             this.Heat(mult, gaze_heating:false);
         }
     }
@@ -63,10 +66,10 @@ public class LanternBehavior : MonoBehaviour {
 
     private void UpdateAppearance() {
         float luminance = (this.temperature + 0.2f) / 1.2f;
-        this.light_material.SetVector("_EmissionColor", Color.white * luminance);
-        bool recently_heated = Time.frameCount - this.last_heat_timestamp < 500;
+        //this.light_material.SetVector("_EmissionColor", Color.white * luminance);
+        bool recently_heated = Time.frameCount - this.last_heat_timestamp < 200;
         if (recently_heated != this.showing_recently_heated) {
-            this.paper_material.SetColor("_Color", recently_heated ? Color.yellow : Color.red);
+            this.light.intensity = recently_heated ? HEATING_INTENSITY : DEFAULT_INTENSITY;
             this.showing_recently_heated = recently_heated;
         }
     }
