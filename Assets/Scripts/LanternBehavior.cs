@@ -52,7 +52,7 @@ public class LanternBehavior : MonoBehaviour {
         if (elev > MIN_ELEVATION || velocity > 0) this.transform.Translate(velocity * Vector3.up);   
         if (elev < ground_heat_elev) {
             // Heat slightly when near ground
-            float mult = 0.07f * (ground_heat_elev - elev);
+            float mult = 0.09f * (ground_heat_elev - elev);
             this.Heat(mult, gaze_heating:false);
         }
     }
@@ -66,7 +66,7 @@ public class LanternBehavior : MonoBehaviour {
 
     private void UpdateAppearance() {
         float luminance = (this.temperature + 0.2f) / 1.2f;
-        //this.light_material.SetVector("_EmissionColor", Color.white * luminance);
+        this.light_material.SetVector("_EmissionColor", Color.white * luminance);
         bool recently_heated = Time.frameCount - this.last_heat_timestamp < 200;
         if (recently_heated != this.showing_recently_heated) {
             this.light.intensity = recently_heated ? HEATING_INTENSITY : DEFAULT_INTENSITY;
