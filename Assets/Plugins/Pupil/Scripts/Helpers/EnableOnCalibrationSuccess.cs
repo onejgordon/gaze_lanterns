@@ -6,6 +6,7 @@ namespace PupilLabs
     {
         public CalibrationController calibrationController;
         public GameObject objectToBeActivated;
+        public GameObject eyeFrameViz;
 
         void OnEnable()
         {
@@ -20,6 +21,8 @@ namespace PupilLabs
         void EnableComponent()
         {
             objectToBeActivated.SetActive(true);
+
+            if (eyeFrameViz != null) eyeFrameViz.SetActive(false);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace PupilLabs
         Vector3 localGazeDirection;
         float gazeDistance;
         bool isGazing = false;
+        public bool showGazeRay = true;
 
         void OnEnable()
         {
@@ -111,15 +112,23 @@ namespace PupilLabs
             projectionMarker.gameObject.SetActive(true);
 
             Vector3 origin = cameraTransform.position;
-
+            origin += Vector3.down * 0.1f;
+            
             Vector3 direction = cameraTransform.TransformDirection(localGazeDirection);
 
             if (Physics.SphereCast(origin, sphereCastRadius, direction, out RaycastHit hit, Mathf.Infinity))
             {
                 Debug.DrawRay(origin, direction * hit.distance, Color.yellow);
                 projectionMarker.gameObject.SetActive(true);
-                projectionMarker.position = hit.point;
-                projectionMarker.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                if (showGazeRay) {
+                    projectionMarker.position = origin;
+                    float dist = Vector3.Distance(origin, hit.point);
+                    projectionMarker.localScale = new Vector3(.02f, dist, .02f);
+                    projectionMarker.up = hit.point - origin;
+                } else {
+                    projectionMarker.position = hit.point;
+                    projectionMarker.rotation = Quaternion.FromToRotation(Vector3.forward, hit.normal);
+                }
             }
             else
             {
