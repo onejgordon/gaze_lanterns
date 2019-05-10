@@ -1,6 +1,6 @@
 # Gaze Demo and Starter Project for Research Projects using Unity + HTC Vive + Pupil Labs Addon
 
-![gaze lanterns screenshot](https://raw.githubusercontent.com/onejgordon/gaze_lanterns/master/resources/gaze_latnerns_ss.png)
+![gaze lanterns screenshot](https://github.com/onejgordon/gaze_lanterns/blob/master/resources/gaze_lanterns_ss.png?raw=true)
 
 ## Key Files
 
